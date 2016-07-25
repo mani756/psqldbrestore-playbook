@@ -1,0 +1,6 @@
+file_path: /home/kogentix/fileformat_poc_dump_20160624-064638.sql.gz
+db_restore: /home/kogentix/restore
+db_name: fileformat_poc
+db_user: kogentix
+
+

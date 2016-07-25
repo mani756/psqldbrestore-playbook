@@ -1,0 +1,23 @@
+---
+- name: psqldbrestore
+  hosts: pdbrestore
+  vars_files:
+    - vars.yml
+
+  tasks:
+
+     - name: Get fileformat_poc file path
+       stat: path={{ file_path }}
+       register: mysql_dump_file_path
+       failed_when: mysql_dump_file_path.stat.exists == false
+
+     - name: Create /pdb_restore
+       file:
+        path={{ db_restore }}
+        state=directory
+
+     - name: Copy database backup to the machine
+       shell: cp -R {{ file_path }} {{ db_restore }}
+
+     - name: Restore  db
+       shell: gunzip -c {{ file_path }} | psql -U {{ db_user }} -d {{ db_name }}
